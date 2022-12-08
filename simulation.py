@@ -17,15 +17,19 @@
 # Final Project
 # Faulty Node Networking
 
-
 # library imports
 
 # Declare node + edge data globally here
 # Default graph structure
-nodes = [['a', 0.02], ['b', 0.05], ['c', 0.1], ['d', 0.01], ['e', 0.01], ['f', 0.15]] # [node, failureProb]
-edges = [['a', 'b', 0.01], ['a', 'c', 0.01], ['b', 'd', 0.01], ['c', 'd', 0.01], ['d', 'e', 0.01], ['d', 'f', 0.01], ['e', 'f', 0.01]] # [pt1, pt2, failureProb]
-# nodeFailureProb = []
-# edgeFailureProb = []
+nodes = dict({'a': 0.02, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.15}) # dictionary of nodes {nodeName: percentFailure (0-1)}
+edges = dict({
+         'ab': [1, 0.01],
+         'ac': [3, 0.01],
+         'bd': [1, 0.04],
+         'cd': [2, 0.02],
+         'de': [5, 0.01],
+         'df': [2, 0.15]}) # dictionary of edges {nodePair: [edgeWeight (distance), percentFailure]}		# could also set this up another way: https://www.pythonpool.com/dijkstras-algorithm-python/
+
 
 #Graph Class
 class Graph:
@@ -44,7 +48,8 @@ class Graph:
     def deleteNode():
         # what node do would you like to delete: 
         # delete node from nodes[]
-        # iterate through edges[] and delete entire edge when encountered
+            # del nodes[usrIn]
+        # iterate through edges[] and delete entire edge when deleted node encountered
         
     def addEdge():
         # name your first node: 
@@ -55,7 +60,7 @@ class Graph:
         # delete the edge between what and what nodes: p, q
         # iterate through edges[] and if contains both p and q, delete entire edge
         
-    # def displayGraph():
+    def displayGraph():
         # iterate through edges[] and nodes[] and simply print ?
         
 
@@ -66,16 +71,28 @@ def loadGraph():
 def dijkstra():
 
 #Breadth First Search algorithm to simulate pathing of the graph
-def BFS():
+def bfs():
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
+    # randomize/calculate which node will fail
+    # remove node
+    # print('node ' + node + ' failed')
+    # run dijkstras
+    # run breadth-first
+    # print('the shortest path found by dijkstras is ' + path_d)
+    # print('the shortest path found by breadth-first is ' + path_bf)
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
-
-#displays current graph
-def displayGraph(graph):
+    # randomize/calculate which link will fail
+    # remove link
+    # print('link ' + link + ' failed')
+    # run dijkstras
+    # run breadth-first
+    # print('the shortest path found by dijkstras is ' + path_d)
+    # print('the shortest path found by breadth-first is ' + path_bf)
+    
 
 #Menu function to allow user to simulate either node or link failure, as well as display the current graph.
 def menu():
@@ -92,18 +109,22 @@ def main():
 	#display title
 	
 	#load graph
+    graph = Graph()
 	
-	i = 0 #userInput
+	userInput = 0
 	
-	while i is not '4':
-		i = menu()
-		if i is '1':
-			#display graph
-		elif i is '2':
-			#simulate node failure
-		elif i is '3':
-			#simulate link failure
-		elif i is '4':
+	while userInput is not '4':
+		userInput = menu()
+		if userInput is '1':
+			# display graph
+			graph.displayGraph()
+		elif userInput is '2':
+			# simulate node failure
+			nodeFailure(graph)
+		elif userInput is '3':
+			# simulate link failure
+			linkFailure(graph)
+		elif userInput is '4':
 			break
 		else:
 			print("Please enter a valid input.\n")
