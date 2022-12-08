@@ -28,8 +28,16 @@ edges = dict({
          'bd': [1, 0.04],
          'cd': [2, 0.02],
          'de': [5, 0.01],
-         'df': [2, 0.15]}) # dictionary of edges {nodePair: [edgeWeight (distance), percentFailure]}		# could also set this up another way: https://www.pythonpool.com/dijkstras-algorithm-python/
+         'df': [2, 0.15]}) # dictionary of edges {nodePair: [edgeWeight (distance), percentFailure]}
 
+# could also set this up another way: https://www.pythonpool.com/dijkstras-algorithm-python/
+# edges = dict({
+#				'a': {'b': [1, 0.01], 'c': [3, 0.01]},
+# 				'b': {'a': [1, 0.01], 'd': [1, 0.04]},
+#               'c': {'a': [3, 0.01], 'd': [2, 0.02]},
+# 				'd': {'b': [1, 0.04], 'c': [2, 0.02], 'e': [5, 0.01], 'f': [2, 0.15]},
+#   			'e': {'d': [5, 0.01]},
+# 				'f': {'d': [2, 0.15]}})
 
 #Graph Class
 class Graph:
