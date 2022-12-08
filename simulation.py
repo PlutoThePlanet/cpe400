@@ -14,7 +14,7 @@
 
 # Paige Mortensen and Marissa Floam
 # CPE 400
-# Final Project
+ # Final Project
 # Faulty Node Networking
 
 # library imports
@@ -23,12 +23,13 @@
 # Default graph structure
 nodes = dict({'a': 0.02, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.15}) # dictionary of nodes {nodeName: percentFailure (0-1)}
 edges = dict({
-                'a': {'b': [1, 0.01], 'c': [3, 0.01]},
- 				'b': {'a': [1, 0.01], 'd': [1, 0.04]},
-                'c': {'a': [3, 0.01], 'd': [2, 0.02]},
-				'd': {'b': [1, 0.04], 'c': [2, 0.02], 'e': [5, 0.01], 'f': [2, 0.15]},
-                'e': {'d': [5, 0.01]},
- 				'f': {'d': [2, 0.15]}})
+                'a': {'b': 1, 'c': 3},
+ 				'b': {'a': 1, 'd': 1},
+                'c': {'a': 3, 'd': 2},
+				'd': {'b': 1, 'c': 2, 'e': 5, 'f': 2},
+                'e': {'d': 5},
+ 				'f': {'d': 2}})
+linkProbFailure = dict({'ab': 0.01, 'ac': 0.01, 'bd': 0.04, 'cd': 0.02, 'de': 0.01, 'df': 0.15})
 
 #Graph Class
 class Graph:
