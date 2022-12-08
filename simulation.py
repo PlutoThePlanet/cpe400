@@ -23,21 +23,12 @@
 # Default graph structure
 nodes = dict({'a': 0.02, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.15}) # dictionary of nodes {nodeName: percentFailure (0-1)}
 edges = dict({
-         'ab': [1, 0.01],
-         'ac': [3, 0.01],
-         'bd': [1, 0.04],
-         'cd': [2, 0.02],
-         'de': [5, 0.01],
-         'df': [2, 0.15]}) # dictionary of edges {nodePair: [edgeWeight (distance), percentFailure]}
-
-# could also set this up another way: https://www.pythonpool.com/dijkstras-algorithm-python/
-# edges = dict({
-#				'a': {'b': [1, 0.01], 'c': [3, 0.01]},
-# 				'b': {'a': [1, 0.01], 'd': [1, 0.04]},
-#               'c': {'a': [3, 0.01], 'd': [2, 0.02]},
-# 				'd': {'b': [1, 0.04], 'c': [2, 0.02], 'e': [5, 0.01], 'f': [2, 0.15]},
-#   			'e': {'d': [5, 0.01]},
-# 				'f': {'d': [2, 0.15]}})
+                'a': {'b': [1, 0.01], 'c': [3, 0.01]},
+ 				'b': {'a': [1, 0.01], 'd': [1, 0.04]},
+                'c': {'a': [3, 0.01], 'd': [2, 0.02]},
+				'd': {'b': [1, 0.04], 'c': [2, 0.02], 'e': [5, 0.01], 'f': [2, 0.15]},
+                'e': {'d': [5, 0.01]},
+ 				'f': {'d': [2, 0.15]}})
 
 #Graph Class
 class Graph:
@@ -89,17 +80,25 @@ def nodeFailure(graph):
     # run dijkstras
     # run breadth-first
     # print('the shortest path found by dijkstras is ' + path_d)
+        # total the weight of the entire path
+        # time to find ?
     # print('the shortest path found by breadth-first is ' + path_bf)
+        # total the weight of the entire path
+        # time to find ?
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
     # randomize/calculate which link will fail
     # remove link
     # print('link ' + link + ' failed')
-    # run dijkstras
+    # run dijkstrass
     # run breadth-first
     # print('the shortest path found by dijkstras is ' + path_d)
+        # total the weight of the entire path
+        # time to find ?
     # print('the shortest path found by breadth-first is ' + path_bf)
+        # total the weight of the entire path
+        # time to find ?
     
 
 #Menu function to allow user to simulate either node or link failure, as well as display the current graph.
