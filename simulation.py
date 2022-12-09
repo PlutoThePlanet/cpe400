@@ -34,8 +34,8 @@ linkProbFailure = dict({'ab': 0.01, 'ac': 0.01, 'bd': 0.04, 'cd': 0.02, 'de': 0.
 
 nodeLabels = list(nodes.keys()) #converts node labels to list
 nodeProbs = list(nodes.values()) #converts node failure probabilities to list
-linkLabels = list(links.keys()) #converts link labels to list
-linkProbs = list(links.values()) #converts link failure probabilities to list
+linkLabels = list(linkProbFailure.keys()) #converts link labels to list
+linkProbs = list(linkProbFailure.values()) #converts link failure probabilities to list
 
 #Graph Class
 class Graph:
@@ -50,6 +50,7 @@ class Graph:
         self.linkFailureProb = linkProbs
         self.sourceNode = 'a'
         self.targetNode = 'f'
+        #self.distances = {} ??
     
     def addNode():
         # name your node:
