@@ -31,8 +31,8 @@ links = dict({
                 'f': {'d': 2}})
 linkProbFailure = dict({'ab': 0.01, 'ac': 0.01, 'bd': 0.04, 'cd': 0.02, 'de': 0.01, 'df': 0.15})
 
-nodeLabels = list(nodes.keys()) 			#converts node labels to list
-nodeProbs = list(nodes.values()) 			#converts node failure probabilities to list
+nodeLabels = list(nodes.keys()) 		#converts node labels to list
+nodeProbs = list(nodes.values()) 		#converts node failure probabilities to list
 linkLabels = list(linkProbFailure.keys()) 	#converts link labels to list
 linkProbs = list(linkProbFailure.values()) 	#converts link failure probabilities to list
 
@@ -58,9 +58,9 @@ class Graph:
         del self.nodes[node]
 
         # deletes from links
-        del self.links[node]          						# delete the entirety of the node and its links
+        del self.links[node]          					# delete the entirety of the node and its links
         for elem in neighbors:  
-          del self.links[elem][node]  						# delete node's link from its old neighbors
+          del self.links[elem][node]  					# delete node's link from its old neighbors
           
         # deletes from linkProbFailure
         toDeleteLinks = []
@@ -105,18 +105,18 @@ def bfs():
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
-    population = list(nodes.keys()) 									#converts node labels to list
-    probability = list(nodes.values())  								#converts node failure probabilities to list
+    population = list(nodes.keys()) 					#converts node labels to list
+    probability = list(nodes.values())  				#converts node failure probabilities to list
     failedNode = random.choices(population, weights=probability, k=1)   #randomly picks a node to fail based on weighted probabilities
-    print("Node ", failedNode[0], " failed.")   						#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
-    graph.deleteNode(failedNode[0]) 									#need to somehow connect failed node to the graph.nodes idk how atm
+    print("Node ", failedNode[0], " failed.")   			#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
+    graph.deleteNode(failedNode[0]) 					#need to somehow connect failed node to the graph.nodes idk how atm
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
-    pop = list(linkProbFailure.keys())  					#converts link labels to list
-    prob = list(linkProbFailure.values())   				#converts link failure probabilities to list
+    pop = list(linkProbFailure.keys())  			#converts link labels to list
+    prob = list(linkProbFailure.values())   			#converts link failure probabilities to list
     failedLink = random.choices(pop, weights=prob, k=1) 	#randomly picks an edge to fail based on weighted probabilities
-    print("Link ", failedLink[0], " failed.")   			#same issue as above. how to connect this failedLink to the graph.links?
+    print("Link ", failedLink[0], " failed.")   		#same issue as above. how to connect this failedLink to the graph.links?
     graph.deleteEdge(failedLink[0])
 
 def findShortestPath():
