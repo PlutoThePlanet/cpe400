@@ -24,11 +24,11 @@ import random
 nodes = dict({'a': 0.02, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.15}) # dictionary of nodes {nodeName: percentFailure (0-1)}
 links = dict({
                 'a': {'b': 1, 'c': 3},
- 				'b': {'a': 1, 'd': 1},
+                'b': {'a': 1, 'd': 1},
                 'c': {'a': 3, 'd': 2},
-				'd': {'b': 1, 'c': 2, 'e': 5, 'f': 2},
+                'd': {'b': 1, 'c': 2, 'e': 5, 'f': 2},
                 'e': {'d': 5},
- 				'f': {'d': 2}})
+                'f': {'d': 2}})
 linkProbFailure = dict({'ab': 0.01, 'ac': 0.01, 'bd': 0.04, 'cd': 0.02, 'de': 0.01, 'df': 0.15})
 
 nodeLabels = list(nodes.keys()) 			#converts node labels to list
