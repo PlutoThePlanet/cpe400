@@ -90,7 +90,16 @@ def nodeFailure(graph):
     probability = list(nodes.values()) 									#converts node failure probabilities to list
     failedNode = random.choices(population, weights=probability, k=1) 	#randomly picks a node to fail based on weighted probabilities
     print("Node ", failedNode[0], " failed.") 							#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
-    graph.deleteNode(failedNode[0])
+    graph.deleteNode(failedNode[0]) 									#need to somehow connect failed node to the graph.nodes idk how atm
+    
+    # run dijkstras
+    # run breadth-first
+    # print('the shortest path found by dijkstras is ' + path_d)
+        # total the weight of the entire path
+        # time to find ?
+    # print('the shortest path found by breadth-first is ' + path_bf)
+        # total the weight of the entire path
+        # time to find ?
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
@@ -100,6 +109,15 @@ def linkFailure(graph):
     print("Link ", failedLink[0], " failed.") 				#same issue as above. how to connect this failedLink to the graph.links?
     graph.deleteEdge(failedLink[0])
 
+    # run dijkstras
+    # run breadth-first
+    # print('the shortest path found by dijkstras is ' + path_d)
+        # total the weight of the entire path
+        # time to find ?
+    # print('the shortest path found by breadth-first is ' + path_bf)
+        # total the weight of the entire path
+        # time to find ?
+    
 #Menu function to allow user to simulate either node or link failure, as well as display the current graph.
 def menu():
 	print("Select an Option:")
