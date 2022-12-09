@@ -18,6 +18,7 @@
 # Faulty Node Networking
 
 # library imports
+import random
 
 # Declare node + edge data globally here
 # Default graph structure
@@ -75,9 +76,16 @@ def bfs():
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
-    # randomize/calculate which node will fail
-    # remove node
-    # print('node ' + node + ' failed')
+    population = list(nodes.keys()) #converts node labels to list
+    probability = list(nodes.values()) #converts node failure probabilities to list
+    
+    failedNode = random.choices(population, weights=probability, k=1) #randomly picks a node to fail based on weighted probabilities
+    
+    print("Node ", failedNode[0], " failed.") #random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
+    
+    graph.deleteNode(failedNode[0]) #need to somehow connect failed node to the graph.nodes idk how atm
+    #maybe compare index of population list?
+    
     # run dijkstras
     # run breadth-first
     # print('the shortest path found by dijkstras is ' + path_d)
@@ -89,10 +97,16 @@ def nodeFailure(graph):
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
-    # randomize/calculate which link will fail
-    # remove link
-    # print('link ' + link + ' failed')
-    # run dijkstrass
+    pop = list(linkProbFailure.keys()) #converts link labels to list
+    prob = list(linkProbFailure.values()) #converts link failure probabilities to list
+    
+    failedLink = random.choices(pop, weights=prob, k=1) #randomly picks an edge to fail based on weighted probabilities
+    
+    print("Link ", failedLink[0], " failed.") #same issue as above. how to connect this failedLink to the graph.links?
+    
+    graph.deleteEdge(failedLink[0]) #wrong argument, see above
+
+    # run dijkstras
     # run breadth-first
     # print('the shortest path found by dijkstras is ' + path_d)
         # total the weight of the entire path
@@ -115,9 +129,14 @@ def menu():
 #Main function displays the title, loads in the graph, and calls appropriate functions based on user input of the menu.
 def main():
 	#display title
+	print("\n\n*~*~*~*~*~*~*~*~*")
+	print("CPE 400 Final Project")
+	print("Dynamic Routing Mechanism Design in Faulty Network")
+	print("By: Marissa Floam & Paige Mortensen")
+	print("*~*~*~*~*~*~*~*~*\n\n")
 	
 	#load graph
-    graph = Graph()
+	graph = Graph()
 	
 	userInput = 0
 	
