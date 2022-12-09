@@ -23,7 +23,7 @@ import random
 # Declare node + edge data globally here
 # Default graph structure
 nodes = dict({'a': 0.02, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.15}) # dictionary of nodes {nodeName: percentFailure (0-1)}
-edges = dict({
+links = dict({
                 'a': {'b': 1, 'c': 3},
  				'b': {'a': 1, 'd': 1},
                 'c': {'a': 3, 'd': 2},
@@ -32,14 +32,24 @@ edges = dict({
  				'f': {'d': 2}})
 linkProbFailure = dict({'ab': 0.01, 'ac': 0.01, 'bd': 0.04, 'cd': 0.02, 'de': 0.01, 'df': 0.15})
 
+nodeLabels = list(nodes.keys()) #converts node labels to list
+nodeProbs = list(nodes.values()) #converts node failure probabilities to list
+linkLabels = list(links.keys()) #converts link labels to list
+linkProbs = list(links.values()) #converts link failure probabilities to list
+
 #Graph Class
 class Graph:
 	#attributes: nodes, edges, failure likelihoods, distance, delay
 	#functions: add node, remove node, add edge, remove edge, display/compare?
     
     # constructor
-    # def __init__(self):
-        # 
+    def __init__(self):
+        self.nodes = nodeLabels
+        self.nodeFailureProb = nodeProbs
+        self.links = linkLabels
+        self.linkFailureProb = linkProbs
+        self.sourceNode = 'a'
+        self.targetNode = 'f'
     
     def addNode():
         # name your node:
