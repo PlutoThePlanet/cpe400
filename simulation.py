@@ -103,8 +103,8 @@ def bfs():
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
-  population = list(nodes.keys()) 					#converts node labels to list
-  probability = list(nodes.values())  					#converts node failure probabilities to list
+  population = list(graph.nodes.keys()) 					#converts node labels to list
+  probability = list(graph.nodes.values())  					#converts node failure probabilities to list
   failedNode = random.choices(population, weights=probability, k=1)   	#randomly picks a node to fail based on weighted probabilities
   print("Node", failedNode[0], "has failed.")   			#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
   graph.deleteNode(failedNode[0]) 					#need to somehow connect failed node to the graph.nodes idk how atm
@@ -160,10 +160,18 @@ def main():
 			graph.displayGraph()
 		elif userInput == '2':
 			# simulate node failure
-			nodeFailure(graph)
+			if not list(graph.nodes.keys()):
+				print("Error: No nodes or links left to fail.\n")
+				break
+			else:
+				nodeFailure(graph)
 		elif userInput == '3':
 			# simulate link failure
-			linkFailure(graph)
+			if not list(graph.linkProbFailure.keys()):
+				print("Error: No nodes or links left to fail.\n")
+				break
+			else:
+				linkFailure(graph)
 		elif userInput == '4':
 			#Dijkstra's vs. BFS
 			findShortestPath(graph)
