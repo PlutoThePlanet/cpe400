@@ -55,6 +55,7 @@ class Graph:
         nonLinkedNodes.append(elem)
     for elem in nonLinkedNodes:
       del self.links[elem]
+      del self.nodes[elem]
   
     print("Node", node, "has been removed from the graph.")
     print("Remaining nodes: ", list(self.nodes.keys()))
@@ -80,12 +81,12 @@ class Graph:
         nonLinkedNodes.append(elem)
     for elem in nonLinkedNodes:
       del self.links[elem]
+      del self.nodes[elem]
 
     print("Link", link, "has been removed from the graph.")
     print("Remaining links: ", list(self.linkProbFailure.keys()), "\n\n")
     
   def displayGraph(self):
-    # iterate through edges[] and nodes[] and simply print ?
     n = list(self.nodes.keys())
     l = list(self.linkProbFailure.keys())
     print("Current Nodes:", n)
