@@ -2,7 +2,7 @@
 
 <h2>Authors: Marissa Floam & Paige Mortensen</h2>
 
-Graph Class:
+<h3>Graph Class:</h3>
 
   Constructor:
   
@@ -13,7 +13,7 @@ Graph Class:
   displayGraph:
   
 
-Functions:
+<h3>Functions:</h3>
 
   dijkstra:
   
@@ -30,6 +30,6 @@ Functions:
   main:
   
 
-Error Handling:
+<h3>Error Handling:</h3>
 
-Results:
+<h3>Results:</h3>
