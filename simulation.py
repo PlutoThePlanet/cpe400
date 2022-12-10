@@ -111,8 +111,8 @@ def nodeFailure(graph):
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
-  pop = list(linkProbFailure.keys())  			#converts link labels to list
-  prob = list(linkProbFailure.values())   		#converts link failure probabilities to list
+  pop = list(graph.linkProbFailure.keys())  			#converts link labels to list
+  prob = list(graph.linkProbFailure.values())   		#converts link failure probabilities to list
   failedLink = random.choices(pop, weights=prob, k=1) 	#randomly picks an edge to fail based on weighted probabilities
   print("Link", failedLink[0], "has failed.")   	#same issue as above. how to connect this failedLink to the graph.links?
   graph.deleteLink(failedLink[0])
