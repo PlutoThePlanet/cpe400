@@ -21,7 +21,7 @@
 import random
 
 # Default graph structure
-nodes = dict({'a': 0.02, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.15}) # dictionary of nodes {nodeName: percentFailure (0-1)}
+nodes = dict({'a': 0.00, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.00}) # dictionary of nodes {nodeName: percentFailure (0-1)} note that a and f are source/target and thus cannot fail
 links = dict({
                 'a': {'b': 1, 'c': 3},
                 'b': {'a': 1, 'd': 1},
@@ -38,20 +38,14 @@ linkProbs = list(linkProbFailure.values()) 	#converts link failure probabilities
 
 #Graph Class
 class Graph:
-  def __init__(self): # constructor
-    self.nodes = nodes
-    self.links = links
-    self.linkProbFailure = linkProbFailure
-    self.sourceNode = 'a'
-    self.targetNode = 'f'
+    def __init__(self): # constructor
+    	self.nodes = nodes
+    	self.links = links
+    	self.linkProbFailure = linkProbFailure
+    	self.sourceNode = 'a'
+    	self.targetNode = 'f'
     
-    # def addNode():
-        # name your node:
-        # what failure prob. would you like it to have (0-1)
-        # name an adjacent node to connect your new node to
-        
-    def deleteNode():
-        def deleteNode(self, node): 
+    def deleteNode(self, node):
         neighbors = list(links[node].keys()) 				# get key values of what nodes 'node' can see
 
         # deletes from nodes
@@ -83,32 +77,33 @@ class Graph:
         print("Node", node, "has been removed from the graph.")
         print("Remaining nodes: ", list(self.nodes.keys()))
         print("Remaining links: ", list(self.linkProbFailure.keys()))
+        print("\n\n")
         
-    # def addEdge():
-        # name your first node: 
-        # name your second node: 
-        # what failure prob would you like it to have: 
-        
-    def deleteLink():
+    def deleteLink(self):
         # delete the edge between what and what nodes: p, q
         # iterate through edges[] and if contains both p and q, delete entire edge
+        print("This will eventually delete a failed link")
         
-    def displayGraph():
+    def displayGraph(self):
         # iterate through edges[] and nodes[] and simply print ?
+        print("Current Nodes:", nodeLabels)
+        print("Current Links:", linkLabels)
         
 
 #Dijkstra's algorithm to simulate pathing of the graph
 def dijkstra():
+	print("Do dijkstra's here")
 
 #Breadth First Search algorithm to simulate pathing of the graph
 def bfs():
+	print("Do BFS here")
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
     population = list(nodes.keys()) 					#converts node labels to list
     probability = list(nodes.values())  				#converts node failure probabilities to list
     failedNode = random.choices(population, weights=probability, k=1)   #randomly picks a node to fail based on weighted probabilities
-    print("Node ", failedNode[0], " failed.")   			#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
+    print("Node", failedNode[0], "has failed.")   			#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
     graph.deleteNode(failedNode[0]) 					#need to somehow connect failed node to the graph.nodes idk how atm
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
@@ -116,10 +111,11 @@ def linkFailure(graph):
     pop = list(linkProbFailure.keys())  			#converts link labels to list
     prob = list(linkProbFailure.values())   			#converts link failure probabilities to list
     failedLink = random.choices(pop, weights=prob, k=1) 	#randomly picks an edge to fail based on weighted probabilities
-    print("Link ", failedLink[0], " failed.")   		#same issue as above. how to connect this failedLink to the graph.links?
+    print("Link", failedLink[0], "has failed.")   		#same issue as above. how to connect this failedLink to the graph.links?
     graph.deleteEdge(failedLink[0])
 
-def findShortestPath():
+def findShortestPath(graph):
+	print("find shortest path here")
     # run dijkstras
     # run breadth-first
     # print('the shortest path found by dijkstras is ' + path_d)
@@ -135,7 +131,8 @@ def menu():
 	print("1. Display Graph")
 	print("2. Simulate Node Failure")
 	print("3. Simulate Link Failure")
-	print("4. Exit")
+	print("4. Run Pathing Algorithms")
+	print("5. Exit\n\n")
 	i = input("Option: ")
 	return i
 
@@ -153,18 +150,29 @@ def main():
 	
 	userInput = 0
 	
-	while userInput is not '4':
+	while userInput != '5':
 		userInput = menu()
-		if userInput is '1':
+		if userInput == '1':
 			# display graph
 			graph.displayGraph()
-		elif userInput is '2':
+		elif userInput == '2':
 			# simulate node failure
-			nodeFailure(graph)
-		elif userInput is '3':
+			if not nodeLabels:
+				print("Error: No nodes left to fail")
+				break
+			else:
+				nodeFailure(graph)
+		elif userInput == '3':
 			# simulate link failure
-			linkFailure(graph)
-		elif userInput is '4':
+			if not linkLabels:
+				print("Error: No links left to fail")
+				break
+			else:
+				linkFailure(graph)
+		elif userInput == '4':
+			#Dijkstra's vs. BFS
+			findShortestPath(graph)
+		elif userInput == '5':
 			break
 		else:
 			print("Please enter a valid input.\n")
