@@ -3,32 +3,45 @@
 <h2>Authors: Marissa Floam & Paige Mortensen</h2>
 
 <h3>Graph Class:</h3>
-
-  Constructor:
+<ul>
+ <li>Constructor</li>
+ <p>The constructor of the Graph class includes initialization of the links, nodes, probabilitiy failures, and source node of the Graph.</p>
   
-  deleteNode:
+  <li> deleteNode </li>
+ <p> deleteNode removes a node and the associated links from the graph, and displays the remaining nodes and links.</p>
   
-  deleteLink:
+  <li> deleteLink </li>
+  <p> deleteLink removes a link and all unconnected nodes from the graph, and displays the remaining links. </p>
   
-  displayGraph:
+  <li> displayGraph </li>
+  <p> displayGraph displays the current nodes and links in the graph. </p>
   
+ </ul>
 
 <h3>Functions:</h3>
 
-  dijkstra:
+<ul>
+  <li> dijkstra </li>
+  <p> In order to simulate pathing after a node or link fails, Dijkstra's algorithm is run to determine the shortest possible path.</p>
   
-  bfs:
+  <li> bellmanFord </li>
+  <p> Same as above, but simulated with Bellman-Ford's algorithm of shortest pathing to compare which is more efficient.</p>
   
-  nodeFailure:
+  <li> nodeFailure </li>
+  <p> If the user wants to simulate a node failure in the graph, this function will remove the failed node, the links attached, and display which node failed.</p>
   
-  linkFailure:
+  <li> linkFailure </li>
+    <p> If the user wants to simulate a link failure in the graph, this function will remove the failed link, the unattached nodes, and display which link failed.</p>
+    
+ <li> findShortestPath </li>
+ <p> This function runs both Dijkstra's and Bellman-Ford on the current graph and displays each path as well as the total distance.</p>
   
-  findShortestPath:
+  <li> menu </li>
+  <p> This function displays a menu and returns the user's input.</p>
   
-  menu:
-  
-  main:
-  
+  <li> main </li>
+  <p> The main function displays the title, loads in the graph, and calls appropiate functions based on user input. </p>
+ </ul>
 
 <h3>Error Handling:</h3>
 
