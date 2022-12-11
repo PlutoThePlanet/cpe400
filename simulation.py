@@ -1,3 +1,9 @@
+#
+#CPE400 Final Project: Dynamic Routing Mechanism Design in Faulty Network
+#Authors: Marissa Floam & Paige Mortensen
+#Fall 2022
+#
+
 # library imports
 import random
 
@@ -26,8 +32,8 @@ class Graph:
     self.sourceNode = 'a'
     self.targetNode = 'f'
   
-  def deleteNode(self, node):
-    neighbors = list(links[node].keys()) 				# get key values of what nodes 'node' can see
+  def deleteNode(self, node):			#deletes a node and connected links from the graph
+    neighbors = list(links[node].keys()) 	# get key values of what nodes 'node' can see
     if not linkLabels:
       print("Error")
     else:
@@ -35,15 +41,15 @@ class Graph:
       del self.nodes[node]
 
       # deletes from links
-      del self.links[node]          					# delete the entirety of the node and its links
-      for elem in neighbors:  
-        del self.links[elem][node]  					# delete node's link from its old neighbors
+      del self.links[node]          		# delete the entirety of the node and its links
+      for elem in neighbors: 
+        del self.links[elem][node]  		# delete node's link from its old neighbors
       # deletes from linkProbFailure
       toDeleteLinks = []
-      for elem in self.linkProbFailure.keys():  			# iterate through original list of links + failure
+      for elem in self.linkProbFailure.keys():  # iterate through original list of links + failure
         if elem.__contains__(node):
           toDeleteLinks.append(elem)
-      for elem in toDeleteLinks:                			# go through and delete desired links (those connected to failed node)
+      for elem in toDeleteLinks:                # go through and delete desired links (those connected to failed node)
         del self.linkProbFailure[elem]
   
     # deletes nodes that are no
@@ -61,7 +67,7 @@ class Graph:
     print("Remaining nodes: ", list(self.nodes.keys()))
     print("Remaining links: ", list(self.linkProbFailure.keys()), "\n\n")
       
-  def deleteLink(self, link):
+  def deleteLink(self, link):		#deletes a link and unconnected nodes from the graph
     # delete from links
     linkNodes = list(link)
     firstNode = linkNodes[0]
@@ -86,20 +92,44 @@ class Graph:
     print("Link", link, "has been removed from the graph.")
     print("Remaining links: ", list(self.linkProbFailure.keys()), "\n\n")
     
-  def displayGraph(self):
+  def displayGraph(self):		#displays current graph links and nodes
     n = list(self.nodes.keys())
     l = list(self.linkProbFailure.keys())
     print("Current Nodes:", n)
     print("Current Links:", l, "\n\n")
     
 
-#Dijkstra's algorithm to simulate pathing of the graph
-def dijkstra():
-	print("Do dijkstra's here")
+#Dijkstra's algorithm to simulate shortest possible pathing of the graph
+def dijkstra(current, nds, links):
+	unvisited = {node: None for node in nds} 	#all unvisited nodes
+	visited = {} 	#stores shortest distance from one node to another
+	currentDistance = 0
+	unvisited[current] = currentDistance 	#stores node predecessors
+	totalDistance = 0
+	
+	print("Running Dijkstra's Algorithm on current graph...\n")
+
+	while True:
+		#iterate through all unvisited nodes
+		for neighbor, distance in links[current].items():
+			#iterate through connected nodes of current node
+			if neighbor not in unvisited: continue
+			newDistance = currentDistance + distance
+			if unvisited[neighbor] is None or unvisited[neighbor] > newDistance:
+				unvisited[neighbor] = newDistance
+		#set current node as target node
+		visited[current] = currentDistance
+		del unvisited[current]
+		if not unvisited: break
+		candidates = [node for node in unvisited.items() if node[1]]
+		current, currentDistance = sorted(candidates, key = lambda x: x[1])[0]
+		totalDistance += currentDistance
+	print("Total Distance:", totalDistance)
+	return visited
 
 #Breadth First Search algorithm to simulate pathing of the graph
-def bfs():
-	print("Do BFS here")
+def bellmanFord():
+	print("Do bellman-ford here")
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
@@ -107,20 +137,24 @@ def nodeFailure(graph):
   probability = list(graph.nodes.values())  					#converts node failure probabilities to list
   failedNode = random.choices(population, weights=probability, k=1)   	#randomly picks a node to fail based on weighted probabilities
   print("Node", failedNode[0], "has failed.")   			#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
-  graph.deleteNode(failedNode[0]) 					#need to somehow connect failed node to the graph.nodes idk how atm
+  graph.deleteNode(failedNode[0]) 					
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
   pop = list(graph.linkProbFailure.keys())  			#converts link labels to list
   prob = list(graph.linkProbFailure.values())   		#converts link failure probabilities to list
   failedLink = random.choices(pop, weights=prob, k=1) 	#randomly picks an edge to fail based on weighted probabilities
-  print("Link", failedLink[0], "has failed.")   	#same issue as above. how to connect this failedLink to the graph.links?
+  print("Link", failedLink[0], "has failed.")   
   graph.deleteLink(failedLink[0])
 
 def findShortestPath(graph):
-	print("find shortest path here")
-    # run dijkstras
-    # run breadth-first
+	current = graph.sourceNode #set source node
+	nds = graph.nodes.keys() #set current nodes
+	#run dijkstra's
+	print("Path:", list(dijkstra(current, nds, links)), "\n")
+
+	
+        # run breadth-first
     # print('the shortest path found by dijkstras is ' + path_d)
         # total the weight of the entire path
         # time to find ?
@@ -162,19 +196,27 @@ def main():
 			# simulate node failure
 			if not list(graph.nodes.keys()):
 				print("Error: No nodes or links left to fail.\n")
+				print("Exiting program...\n")
 				break
 			else:
 				nodeFailure(graph)
+				#findShortestPath(graph)
 		elif userInput == '3':
 			# simulate link failure
 			if not list(graph.linkProbFailure.keys()):
 				print("Error: No nodes or links left to fail.\n")
+				print("Exiting program...\n")
 				break
 			else:
 				linkFailure(graph)
 		elif userInput == '4':
 			#Dijkstra's vs. BFS
-			findShortestPath(graph)
+			if not list(graph.nodes.keys()): #Still crashes when theres only 1 link left?
+				print("Error: No nodes or links left to simulate pathing.\n")
+				print("Exiting program...\n")
+				break
+			else:
+				findShortestPath(graph)
 		elif userInput == '5':
 			break
 		else:
@@ -182,3 +224,4 @@ def main():
 	return
 	
 if __name__ == '__main__': main()
+
