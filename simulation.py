@@ -4,10 +4,10 @@
 
 # library imports
 import random
-from time import perf_counter # timing
+from time import perf_counter # for timing
 
 # Default graph structure
-nodes = dict({'a': 0.00, 'b': 0.05, 'c': 0.01, 'd': 0.01, 'e': 0.01, 'f': 0.02}) # note that a and f are source/target and thus cannot fail
+nodes = dict({'a': 0.00, 'b': 0.05, 'c': 0.01, 'd': 0.01, 'e': 0.01, 'f': 0.02}) # note that a is source and thus cannot fail
 links = dict({
         'a': {'b': 1, 'c': 3},
         'b': {'a': 1, 'd': 1},
