@@ -103,9 +103,9 @@ class Graph:
 #Dijkstra's algorithm to simulate shortest possible pathing of the graph
 def dijkstra(current, nds, links):
 	unvisited = {node: None for node in nds} 	#all unvisited nodes
-	visited = {} 	#stores shortest distance from one node to another
+	visited = {} 					#stores shortest distance from one node to another
 	currentDistance = 0
-	unvisited[current] = currentDistance 	#stores node predecessors
+	unvisited[current] = currentDistance 		#stores node predecessors
 	totalDistance = 0
 	
 	print("Running Dijkstra's Algorithm on current graph...")
@@ -156,16 +156,16 @@ def bellmanFord(links, source):
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
-  population = list(graph.nodes.keys()) 					#converts node labels to list
-  probability = list(graph.nodes.values())  					#converts node failure probabilities to list
+  population = list(graph.nodes.keys()) 				#converts node labels to list
+  probability = list(graph.nodes.values())  				#converts node failure probabilities to list
   failedNode = random.choices(population, weights=probability, k=1)   	#randomly picks a node to fail based on weighted probabilities
   print("Node", failedNode[0], "has failed.")   			#random.choices returns an array so the failed node is at index 0 (and should be the only element in that list)
   graph.deleteNode(failedNode[0]) 					
 
 #when a link failure is simulated, remove failed link, remove nodes attached to the link (if they arent attached to any other nodes), display which links/nodes have been removed.
 def linkFailure(graph):
-  pop = list(graph.linkProbFailure.keys())  			#converts link labels to list
-  prob = list(graph.linkProbFailure.values())   		#converts link failure probabilities to list
+  pop = list(graph.linkProbFailure.keys())  		#converts link labels to list
+  prob = list(graph.linkProbFailure.values())   	#converts link failure probabilities to list
   failedLink = random.choices(pop, weights=prob, k=1) 	#randomly picks an edge to fail based on weighted probabilities
   print("Link", failedLink[0], "has failed.")   
   graph.deleteLink(failedLink[0])
@@ -176,7 +176,7 @@ def findShortestPath(graph):
 	
 	#run dijkstra's
 	start_dijkstra = perf_counter()
-	print("Path:", list(dijkstra(current, nds, links))) 	# run the algorithm
+	print("Path:", list(dijkstra(current, nds, links))) 		# run the algorithm
 	stop_dijkstra = perf_counter()
 	dijkstra_time = ((stop_dijkstra - start_dijkstra) * 1000)	# calc total time (milliseconds)
 	print("Time: ", end =" ")
@@ -185,7 +185,7 @@ def findShortestPath(graph):
 
 	#run bellman-ford
 	start_bellmanFord = perf_counter()
-	distance, predecessor = bellmanFord(links, source='a') 				# run the algorithm
+	distance, predecessor = bellmanFord(links, source='a') 			# run the algorithm
 	stop_bellmanFord = perf_counter()
 	bellmanFord_time = ((stop_bellmanFord - start_bellmanFord) * 1000)	# calc total time (milliseconds)
 	print("Total Distance:",sum(list(distance.values())))
