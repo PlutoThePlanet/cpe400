@@ -5,7 +5,7 @@
 <h3>Graph Class:</h3>
 <ul>
  <li>Constructor</li>
- <p>The constructor of the Graph class includes initialization of the links, nodes, probabilitiy failures, and source node of the Graph.</p>
+ <p>The constructor of the Graph class includes initialization of the links, nodes, probability failures, and source node of the Graph.</p>
   
   <li> deleteNode </li>
  <p> deleteNode removes a node and the associated links from the graph, and displays the remaining nodes and links.</p>
