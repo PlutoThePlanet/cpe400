@@ -6,6 +6,7 @@
 
 # library imports
 import random
+from time import perf_counter # timing
 
 # Default graph structure
 nodes = dict({'a': 0.00, 'b': 0.05, 'c': 0.01, 'd': 0.03, 'e': 0.01, 'f': 0.00}) # note that a and f are source/target and thus cannot fail
@@ -32,8 +33,8 @@ class Graph:
     self.sourceNode = 'a'
     self.targetNode = 'f'
   
-  def deleteNode(self, node):			#deletes a node and connected links from the graph
-    neighbors = list(links[node].keys()) 	# get key values of what nodes 'node' can see
+  def deleteNode(self, node):				#deletes a node and connected links from the graph
+    neighbors = list(links[node].keys()) 		# get key values of what nodes 'node' can see
     if not linkLabels:
       print("Error")
     else:
@@ -41,15 +42,15 @@ class Graph:
       del self.nodes[node]
 
       # deletes from links
-      del self.links[node]          		# delete the entirety of the node and its links
-      for elem in neighbors: 
-        del self.links[elem][node]  		# delete node's link from its old neighbors
+      del self.links[node]          			# delete the entirety of the node and its links
+      for elem in neighbors:  
+        del self.links[elem][node]  			# delete node's link from its old neighbors
       # deletes from linkProbFailure
       toDeleteLinks = []
-      for elem in self.linkProbFailure.keys():  # iterate through original list of links + failure
+      for elem in self.linkProbFailure.keys():  	# iterate through original list of links + failure
         if elem.__contains__(node):
           toDeleteLinks.append(elem)
-      for elem in toDeleteLinks:                # go through and delete desired links (those connected to failed node)
+      for elem in toDeleteLinks:                	# go through and delete desired links (those connected to failed node)
         del self.linkProbFailure[elem]
   
     # deletes nodes that are no
@@ -67,7 +68,7 @@ class Graph:
     print("Remaining nodes: ", list(self.nodes.keys()))
     print("Remaining links: ", list(self.linkProbFailure.keys()), "\n\n")
       
-  def deleteLink(self, link):		#deletes a link and unconnected nodes from the graph
+  def deleteLink(self, link):			#deletes a link and unconnected nodes from the graph
     # delete from links
     linkNodes = list(link)
     firstNode = linkNodes[0]
@@ -128,8 +129,30 @@ def dijkstra(current, nds, links):
 	return visited
 
 #Breadth First Search algorithm to simulate pathing of the graph
-def bellmanFord():
-	print("Do bellman-ford here")
+def bellmanFord(links, source):
+	# Step 1: Prepare the distance and predecessor for each node
+	distance, predecessor = dict(), dict()
+	totalDistance = 0
+	
+	for node in links:
+		distance[node], predecessor[node] = float('inf'), None
+		
+	distance[source] = 0
+	
+	print("Running Bellman-Ford's Algorithm on current graph...\n")
+	
+	# Step 2: Relax the edges
+	for elem in range(len(links) - 1):
+		for node in links:
+			for neighbour in links[node]:
+				# If the distance between the node and the neighbour is lower than the current, store it		
+				if distance[neighbour] > distance[node] + links[node][neighbour]:
+					distance[neighbour], predecessor[neighbour] = distance[node] + links[node][neighbour], node
+					
+	# Step 3: Check for negative weight cycles for node in links:
+	for neighbour in links[node]:
+		assert distance[neighbour] <= distance[node] + links[node][neighbour], "Negative weight cycle."
+	return distance, predecessor
 
 #when a node failure is simulated, remove failed node, remove links attached to the node, display what was removed
 def nodeFailure(graph):
@@ -150,17 +173,22 @@ def linkFailure(graph):
 def findShortestPath(graph):
 	current = graph.sourceNode #set source node
 	nds = graph.nodes.keys() #set current nodes
-	#run dijkstra's
-	print("Path:", list(dijkstra(current, nds, links)), "\n")
-
 	
-        # run breadth-first
-    # print('the shortest path found by dijkstras is ' + path_d)
-        # total the weight of the entire path
-        # time to find ?
-    # print('the shortest path found by breadth-first is ' + path_bf)
-        # total the weight of the entire path
-        # time to find ?
+	#run dijkstra's
+	start_dijkstra = perf_counter()
+	print("Path:", list(dijkstra(current, nds, links)), "\n") 	# run the algorithm
+	stop_dijkstra = perf_counter()
+	dijkstra_time = ((stop_dijkstra - start_dijkstra) * 1000)	# calc total time (milliseconds)
+
+	#run bellman-ford
+	start_bellmanFord = perf_counter()
+	distance, predecessor = bellmanFord(links, source='a') 				# run the algorithm
+	stop_bellmanFord = perf_counter()
+	bellmanFord_time = ((stop_bellmanFord - start_bellmanFord) * 1000)	# calc total time (milliseconds)
+	
+	print("Total Distance:",sum(list(distance.values())))
+	print("Path:", list(distance), "\n")
+	print("Time: " + )
     
 #Menu function to allow user to simulate either node or link failure, as well as display the current graph.
 def menu():
