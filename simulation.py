@@ -1,8 +1,6 @@
-#
-#CPE400 Final Project: Dynamic Routing Mechanism Design in Faulty Network
-#Authors: Marissa Floam & Paige Mortensen
-#Fall 2022
-#
+# CPE400 Final Project: Dynamic Routing Mechanism Design in Faulty Network
+# Authors: Marissa Floam & Paige Mortensen
+# Fall 2022
 
 # library imports
 import random
@@ -68,7 +66,8 @@ class Graph:
     print("Remaining nodes: ", list(self.nodes.keys()))
     print("Remaining links: ", list(self.linkProbFailure.keys()), "\n\n")
       
-  def deleteLink(self, link):			#deletes a link and unconnected nodes from the graph
+  #deletes a link and unconnected nodes from the graph
+  def deleteLink(self, link):			
     # delete from links
     linkNodes = list(link)
     firstNode = linkNodes[0]
@@ -93,7 +92,8 @@ class Graph:
     print("Link", link, "has been removed from the graph.")
     print("Remaining links: ", list(self.linkProbFailure.keys()), "\n\n")
     
-  def displayGraph(self):		#displays current graph links and nodes
+  #displays current graph links and nodes
+  def displayGraph(self):		
     n = list(self.nodes.keys())
     l = list(self.linkProbFailure.keys())
     print("Current Nodes:", n)
@@ -256,4 +256,3 @@ def main():
 	return
 	
 if __name__ == '__main__': main()
-
