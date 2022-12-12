@@ -108,7 +108,7 @@ def dijkstra(current, nds, links):
 	unvisited[current] = currentDistance 	#stores node predecessors
 	totalDistance = 0
 	
-	print("Running Dijkstra's Algorithm on current graph...\n")
+	print("Running Dijkstra's Algorithm on current graph...")
 
 	while True:
 		#iterate through all unvisited nodes
@@ -139,7 +139,7 @@ def bellmanFord(links, source):
 		
 	distance[source] = 0
 	
-	print("Running Bellman-Ford's Algorithm on current graph...\n")
+	print("Running Bellman-Ford's Algorithm on current graph...")
 	
 	# Step 2: Relax the edges
 	for elem in range(len(links) - 1):
@@ -176,19 +176,23 @@ def findShortestPath(graph):
 	
 	#run dijkstra's
 	start_dijkstra = perf_counter()
-	print("Path:", list(dijkstra(current, nds, links)), "\n") 	# run the algorithm
+	print("Path:", list(dijkstra(current, nds, links))) 	# run the algorithm
 	stop_dijkstra = perf_counter()
 	dijkstra_time = ((stop_dijkstra - start_dijkstra) * 1000)	# calc total time (milliseconds)
+	print("Time: ", end =" ")
+	print(round(dijkstra_time, 4))
+	print('\n')
 
 	#run bellman-ford
 	start_bellmanFord = perf_counter()
 	distance, predecessor = bellmanFord(links, source='a') 				# run the algorithm
 	stop_bellmanFord = perf_counter()
 	bellmanFord_time = ((stop_bellmanFord - start_bellmanFord) * 1000)	# calc total time (milliseconds)
-	
 	print("Total Distance:",sum(list(distance.values())))
-	print("Path:", list(distance), "\n")
-	print("Time: " + )
+	print("Path:", list(distance))
+	print("Time: ", end =" ")
+	print(round(bellmanFord_time, 4))
+	print('\n\n')
     
 #Menu function to allow user to simulate either node or link failure, as well as display the current graph.
 def menu():
