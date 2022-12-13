@@ -29,7 +29,6 @@ class Graph:
     self.links = links
     self.linkProbFailure = linkProbFailure
     self.sourceNode = 'a'
-    self.targetNode = 'f'
   
   def deleteNode(self, node):				#deletes a node and connected links from the graph
     neighbors = list(links[node].keys()) 		# get key values of what nodes 'node' can see
@@ -128,7 +127,7 @@ def dijkstra(current, nds, links):
 	print("Total Distance:", totalDistance)
 	return visited
 
-#Breadth First Search algorithm to simulate pathing of the graph
+#Bellman-Ford algorithm to simulate pathing of the graph
 def bellmanFord(links, source):
 	# Step 1: Prepare the distance and predecessor for each node
 	distance, predecessor = dict(), dict()
@@ -242,8 +241,8 @@ def main():
 			else:
 				linkFailure(graph)
 		elif userInput == '4':
-			#Dijkstra's vs. BFS
-			if not list(graph.nodes.keys()): #Still crashes when theres only 1 link left?
+			#Dijkstra's vs. Bellman-Ford
+			if not list(graph.nodes.keys()):
 				print("Error: No nodes or links left to simulate pathing.\n")
 				print("Exiting program...\n")
 				break
