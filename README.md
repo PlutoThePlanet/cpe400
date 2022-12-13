@@ -44,5 +44,9 @@
  </ul>
 
 <h3>Error Handling:</h3>
-
-<h3>Results:</h3>
+<ul>
+<li>In the event that there are no nodes or links in the graph, nodes or links cannot fail and the pathing simulation cannot run. The program checks for this before running failure or pathing.</li>
+<li>The source node cannot fail as it is required to run pathing. The program has the source node 'a' at 0% failure probability to prevent this.</li>
+<li>deleteNode ensures that all links connected to the failed node are deleted as well to prevent hanging links.</li>
+<li>deleteLink and deleteNode ensure that any unconnected nodes are deleted to prevent a stray leftover node in the graph.</li>
+</ul>

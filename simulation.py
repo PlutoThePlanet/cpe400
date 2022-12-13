@@ -179,7 +179,7 @@ def findShortestPath(graph):
 	stop_dijkstra = perf_counter()
 	dijkstra_time = ((stop_dijkstra - start_dijkstra) * 1000)	# calc total time (milliseconds)
 	print("Time: ", end =" ")
-	print(round(dijkstra_time, 4))
+	print(round(dijkstra_time, 4), "ms")
 	print('\n')
 
 	#run bellman-ford
@@ -190,7 +190,7 @@ def findShortestPath(graph):
 	print("Total Distance:",sum(list(distance.values())))
 	print("Path:", list(distance))
 	print("Time: ", end =" ")
-	print(round(bellmanFord_time, 4))
+	print(round(bellmanFord_time, 4), "ms")
 	print('\n\n')
     
 #Menu function to allow user to simulate either node or link failure, as well as display the current graph.
